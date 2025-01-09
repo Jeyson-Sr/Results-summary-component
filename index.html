@@ -40,7 +40,7 @@
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
-        background: linear-gradient(to top, #6743ff, #613ff9, #322be9);
+        background: linear-gradient(to top, #502afd, #613ff9, #443ee2);
         color: #f5f5f5;
         text-align: center;
       }
@@ -52,40 +52,37 @@
         place-items: center;
         border-radius: 50%;
         padding: 50px;
-        background: linear-gradient(to top, #6743ff, #5733f8, #110add);
+        background: linear-gradient(to top, #6743ff, #4a23f9, #110add);
       }
 
-      .resultadoValoracion{
-        font-size: 50px
+      .resultadoValoracion {
+        font-size: 50px;
       }
-      .puntuacion p{
+      .puntuacion p {
         color: rgb(192, 190, 190);
       }
 
-      .seccionResultados h1{
-        color: rgb(228, 228, 228);
+      .seccionResultados h1 {
+        color: rgb(205, 203, 203);
         font-size: 15px;
       }
 
-      .puntuacion_valoracion{
+      .puntuacion_valoracion {
         font-weight: bold;
         font-size: 25px;
       }
-      .puntuacion_descripcion{
+      .puntuacion_descripcion {
         font-weight: lighter;
         color: rgb(213, 211, 211);
         font-size: 16px;
         width: 80%;
       }
 
-
-
-
-      .seccionValoracion{
+      .seccionValoracion {
         height: 400px;
         width: 50%;
         border-top-right-radius: 25px;
-        border-bottom-right-radius: 25px ;
+        border-bottom-right-radius: 25px;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
@@ -96,12 +93,12 @@
         padding: 20px;
       }
 
-      .tituloValoraciones{
+      .tituloValoraciones {
         font-size: 20px;
         font-weight: bold;
       }
 
-      .valoraciones{
+      .valoraciones {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -110,8 +107,7 @@
         align-items: start;
       }
 
-
-      .valoracion{
+      .valoracion {
         width: 250px;
         display: flex;
         flex-direction: row;
@@ -121,28 +117,88 @@
         border-radius: 10px;
       }
 
-      .icono{
+      .icono {
         display: flex;
       }
 
-      .icono h3{
+      .icono h3 {
         margin-left: 10px;
         font-size: 15px;
       }
 
-      p span{
+      p span {
         color: rgb(125, 125, 125);
         font-size: 14px;
       }
 
-      .btoContinuar{
-        padding: 15px 100px ;
+      .btoContinuar {
+        padding: 15px 100px;
         border-radius: 20px;
         border: none;
-        background-color: #303B59;
+        background-color: #303b59;
         color: aliceblue;
       }
 
+      .btoContinuar:hover {
+        background-color: #1f2a44;
+        cursor: pointer;
+      }
+      @media (max-width: 600px) {
+        .contenidocentral {
+          flex-direction: column;
+          margin: 0;
+          width: 100%;
+          height: 100%;
+        }
+        .seccionResultados{
+          width: 250px;
+          height: 45%;
+        }
+      }
+
+      @media (max-width: 430px) {
+        .contenidocentral {
+          flex-direction: column;
+          margin: 0;
+          width: 100%;
+          height: 100%; 
+        }
+        .seccionResultados{
+          width: 100%;
+          height: 45%;
+          border-top-left-radius: 0px;
+          border-top-right-radius : 0px;
+        }
+
+        .seccionResultados h1{
+          font-size: 22px;
+        }
+        .puntuacion{
+          width: 160px;
+          height: 160px;
+        }
+        .puntuacion_valoracion{
+          font-size: 30px;
+        }
+        .puntuacion_descripcion{
+          font-size: 20px;
+          margin-bottom: 20px;
+        }
+        .seccionValoracion{
+          width: 100%;
+          height: 55%;
+
+        }
+        .valoracion{
+          width: 380px;
+          padding: 20px 15px;
+        }
+        .btoContinuar{
+          padding: 20px 145px;
+          border-radius: 30px;
+          font-size: 20px;
+        }
+      }
     </style>
 
     <main class="contenidocentral">
@@ -173,7 +229,7 @@
         });
 
       const colores = ["#FFF6F5", "#FFFBF2", "#F2FBFA", "#F3F3FD"];
-      const textocolores = ["#EB6B6F", "#F8B331", "#56A995", "#323DA9"]
+      const textocolores = ["#EB6B6F", "#F8B331", "#56A995", "#323DA9"];
 
       function resultadoValoracion(data) {
         let valor = 0;
@@ -203,12 +259,14 @@
 
         data.forEach((element, index) => {
           const color = colores[index % colores.length];
-          document.getElementById(`valoracion-${index}`).style.backgroundColor =color;
+          document.getElementById(`valoracion-${index}`).style.backgroundColor =
+            color;
         });
 
         data.forEach((element, index) => {
           const color = textocolores[index % textocolores.length];
-          document.getElementById(`valoracionText-${index}`).style.color =color;
+          document.getElementById(`valoracionText-${index}`).style.color =
+            color;
         });
       }
     </script>
