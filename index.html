@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Results summary component</title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f5f5f5;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .contenidocentral {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        max-width: 580px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 25px;
+      }
+      .seccionResultados {
+        height: 400px;
+        width: 50%;
+        border-radius: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        background: linear-gradient(to top, #6743ff, #613ff9, #322be9);
+        color: #f5f5f5;
+        text-align: center;
+      }
+
+      .puntuacion {
+        width: 150px;
+        height: 150px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        padding: 50px;
+        background: linear-gradient(to top, #6743ff, #5733f8, #110add);
+      }
+
+      .resultadoValoracion{
+        font-size: 50px
+      }
+      .puntuacion p{
+        color: rgb(192, 190, 190);
+      }
+
+      .seccionResultados h1{
+        color: rgb(228, 228, 228);
+        font-size: 15px;
+      }
+
+      .puntuacion_valoracion{
+        font-weight: bold;
+        font-size: 25px;
+      }
+      .puntuacion_descripcion{
+        font-weight: lighter;
+        color: rgb(213, 211, 211);
+        font-size: 16px;
+        width: 80%;
+      }
+
+
+
+
+      .seccionValoracion{
+        height: 400px;
+        width: 50%;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px ;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: start;
+        background-color: #f5f5f5;
+        color: #000;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .tituloValoraciones{
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .valoraciones{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: 10px;
+        align-items: start;
+      }
+
+
+      .valoracion{
+        width: 250px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-radius: 10px;
+      }
+
+      .icono{
+        display: flex;
+      }
+
+      .icono h3{
+        margin-left: 10px;
+        font-size: 15px;
+      }
+
+      p span{
+        color: rgb(125, 125, 125);
+        font-size: 14px;
+      }
+
+      .btoContinuar{
+        padding: 15px 100px ;
+        border-radius: 20px;
+        border: none;
+        background-color: #303B59;
+        color: aliceblue;
+      }
+
+    </style>
+
+    <main class="contenidocentral">
+      <section class="seccionResultados">
+        <h1>Your Result</h1>
+        <div class="puntuacion">
+          <h2 class="resultadoValoracion" id="resultadoValoracion">0</h2>
+          <p>of 100</p>
+        </div>
+        <p class="puntuacion_valoracion">Great</p>
+        <p class="puntuacion_descripcion">
+          You scored higher than 65% of the people who have taken these tests.
+        </p>
+      </section>
+      <section class="seccionValoracion">
+        <h2 class="tituloValoraciones">Summary</h2>
+        <div class="valoraciones" id="valoraciones"></div>
+        <button class="btoContinuar">Continue</button>
+      </section>
+    </main>
+
+    <script>
+      fetch("data.json")
+        .then((response) => response.json())
+        .then((data) => {
+          valor(data);
+          resultadoValoracion(data);
+        });
+
+      const colores = ["#FFF6F5", "#FFFBF2", "#F2FBFA", "#F3F3FD"];
+      const textocolores = ["#EB6B6F", "#F8B331", "#56A995", "#323DA9"]
+
+      function resultadoValoracion(data) {
+        let valor = 0;
+        data.forEach((element) => {
+          valor += element.score;
+        });
+        document.getElementById("resultadoValoracion").textContent = Math.floor(
+          valor / data.length
+        );
+      }
+
+      function valor(data) {
+        let valores = "";
+        data.forEach((element, index) => {
+          valores += `
+            <div class="valoracion" id="valoracion-${index}">
+              <div class="icono">
+                <img src="${element.icon}" alt="${element.category}">
+                <h3 id="valoracionText-${index}">${element.category}</h3>
+              </div>
+              <p><b>${element.score}</b><span>/100</span></p>
+            </div>
+            `;
+          const color = colores[index % colores.length];
+        });
+        document.getElementById("valoraciones").innerHTML = valores;
+
+        data.forEach((element, index) => {
+          const color = colores[index % colores.length];
+          document.getElementById(`valoracion-${index}`).style.backgroundColor =color;
+        });
+
+        data.forEach((element, index) => {
+          const color = textocolores[index % textocolores.length];
+          document.getElementById(`valoracionText-${index}`).style.color =color;
+        });
+      }
+    </script>
+  </body>
+</html>
